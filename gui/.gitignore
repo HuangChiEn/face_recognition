@@ -1,0 +1,7 @@
+## git ignore
+controller
+media_src/*
+layout_config
+
+# cache
+__pycache__

@@ -1,0 +1,4 @@
+## git ignore
+
+# ignore all face image.
+face_gallery/*
