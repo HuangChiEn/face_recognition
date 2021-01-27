@@ -2,7 +2,9 @@
 """
 Created on Mon Jan 25 15:10:32 2021
 
-@author: josep
+@ The face recognition can be build fastly due to lot of 
+@ open source author.. thanks for 
+@ little contributor : josep
 """
 
 from gui import Recognizer_GUI as gui_wrap
