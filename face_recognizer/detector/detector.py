@@ -89,5 +89,6 @@ class Face_Detector:
         release_src(vdo_src)
 
 if __name__ == "__main__":
-    detector = Face_Detector()
-    detector.face_detection(save_dir="./tmp")
+    pass
+    #detector = Face_Detector()
+    #detector.face_detection(save_dir="./tmp")

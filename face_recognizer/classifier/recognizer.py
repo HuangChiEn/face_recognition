@@ -15,18 +15,11 @@ from sklearn.preprocessing import LabelEncoder
 from skimage.transform import resize
 from keras.models import load_model
 
-from os import join, mkdir
-
-import sys
-sys.append("../detector")
-from detector import Face_Detector
-
-
+from os import join
 
 class FaceDemo(object):
     def __init__(self, cascade_path):
         self.vc = None
-        self.face_detector = Face_Detector()
         self.margin = 10
         self.batch_size = 1
         self.n_img_per_person = 10
@@ -62,12 +55,8 @@ class FaceDemo(object):
         embs = l2_normalize(np.concatenate(pd))
     
         return embs
-        
-    def register_face(self, face_img_dir, name='Unknown'):
-        save_dir = join(face_img_dir, name)
-        mkdir(save_dir, exist_ok=True)
-        self.face_detector.face_detection(save_dir)
-                
+                   
+    
     def train(self):
         labels = []
         embs = []

@@ -21,6 +21,7 @@ class Recognizer_GUI(object):
     def __init__(self, parent, **kwargs):
         self.root = parent
         self.setup_root_cfg()
+        #self.init_page()
         self.setup_UI()
         self.face_detector = Face_Detector()
         
@@ -38,6 +39,17 @@ class Recognizer_GUI(object):
         self.root.configure(background='#FFFF99')
         self.root.iconbitmap(os.path.join("gui", "media_src", "icon", "recog_logo.ico"))
         
+    #def init_page(self, frame_class):
+        #self
+    '''   
+    def switch_page(self, frame_class):    
+        new_page = frame_class(self)
+        if(self.curr_page != None):
+            self.__curr_page.destroy()
+        self.__curr_page = new_page
+        self.__curr_page.pack()
+    '''  
+    
     def setup_UI(self):
         
         def setup_button_cfg():
