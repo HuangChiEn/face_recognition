@@ -19,9 +19,7 @@ class Index_page(tk.Frame):
     
     def __init__(self, parent):
         self.parent = parent
-        self.face_detector = Face_Detector()
-        tk.Frame.__init__(self, parent)
-        tk.Frame.configure(self, bg='#FFFFCC')
+        super().__init__(parent, background="#FFFFCC")
         
         # Fixed the main window during the register phase. 
         regis_template = lambda gui_compnt, win : gui_compnt(win)
@@ -50,19 +48,13 @@ class Index_page(tk.Frame):
         btn_lst[-1].grid(row=2, column=0, columnspan=2, rowspan=2, sticky=W+E+N+S, padx=250, pady=50)
         
         
-    def register_face(self, face_img_dir='', name='Unknown'):
-        save_dir = join(face_img_dir, name)
-        makedirs(save_dir, exist_ok=True)
-        self.face_detector.face_detection(save_dir)
-        
-        
     def __setup_button_cfg(self):
         get_img = lambda img_name : join("gui", "media_src", "img", img_name)
         # Button 1.
         btn_cfg = self.cfg_lst[0]
         btn_cfg["text"] = "  Face Registration  "
         btn_cfg["image"] = tk.PhotoImage(file=get_img("regist.pgm"))
-        btn_cfg["command"] = self.register_face
+        btn_cfg["command"] = lambda: self.parent.switch_page(Register_page)
         
         # Button 2.
         btn_cfg = self.cfg_lst[1]
@@ -85,3 +77,29 @@ class Index_page(tk.Frame):
         btn_cfg["image"] =  tk.PhotoImage(file=get_img("quit.pgm")).subsample(2, 2)
         btn_cfg["command"] = lambda : self.parent.destroy()
 
+
+class Register_page(tk.Frame):
+    def __init__(self, parent):
+        self.parent = parent
+        super().__init__(parent, background="#FFFFCC")
+        self.face_detector = Face_Detector() 
+        self.setup_UI()
+        
+    def setup_UI(self):
+        tk.Label(text="Register Name").pack(side=tk.LEFT)
+        
+        regist_name = tk.StringVar()
+        tk.Entry(textvariable=regist_name).pack(side=tk.LEFT)
+        btn = tk.Button(text="submit", 
+                  command=lambda : self.register_face(regist_name.get()))
+        btn.pack()
+        
+    def register_face(self, name='Unknown', face_img_dir='.'):
+        save_dir = join(face_img_dir, name)
+        makedirs(save_dir, exist_ok=True)
+        self.face_detector.face_detection(save_dir)
+        
+        
+        
+        
+        

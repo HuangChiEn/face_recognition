@@ -7,12 +7,9 @@ Created on Mon Jan 25 15:10:32 2021
 @ little contributor : josep
 """
 
-from gui import Recognizer_GUI as gui_wrap
-import tkinter as tk
+from gui import Recognizer_GUI as gui
 
 if __name__ == "__main__":
-    main_win = tk.Tk()
-    gui_wrap.Recognizer_GUI(main_win)
-    
+    main_win = gui.Recognizer_GUI()
     # Activate loop for listen event
     main_win.mainloop()
