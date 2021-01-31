@@ -1,0 +1,16 @@
+# This file list all package building from the conda-env, instaed of pip:
+# platform: win-64
+certifi=2020.6.20=py37haa95532_2
+pip=20.2.4=py37_0
+python=3.7.0=hea74fb7_0
+setuptools=50.3.0=py37h9490d1a_1
+vc=14.1=h0510ff6_4
+vs2015_runtime=14.16.27012=hf0eaf9b_3
+wheel=0.35.1=py_0
+wincertstore=0.2=py37_0
+
+# The several version of package may be mentioned --
+* python == 3.7.0
+* pip == 20.2.4
+* setuptools == 50.3.0
+* wheel == 0.35.1 (used to release your own packge as I known)

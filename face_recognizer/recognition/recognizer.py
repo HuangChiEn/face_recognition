@@ -7,26 +7,33 @@ Created on Fri Jan  1 21:19:30 2021
 import cv2
 from os.path import join
 import copy
+#from sklearn.svm import SVC
+#from sklearn.preprocessing import LabelEncoder
+import numpy as np
 #import signal
 
-class Face_Detector:
+class Face_Recognizer:
     
     def __init__(self, pretrain_path=None):
         # pretrain weight path for face detector
-        path = join("face_recognizer", "detector")
+        path = join("face_recognizer", "recognition")
         self.__weight_path = {"front_face":join(path, "weights", "Haar", "frontalface.xml"),
                               "profile_face":join(path, "weights", "Haar", "profileface.xml")}
-            
+        
         ## frame preprocessing :
         rgb2gray = lambda img : cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         hist_equ = lambda img : cv2.equalizeHist(img)
         self.__prepro_func = lambda x : hist_equ(rgb2gray(x))
         
+        # face classifier
+        #self.clf = SVC(kernel='linear', probability=True)
+        
+        
         
     def __signal_handler(self, sign, frame):
         self.is_interrupted = True
     
-    def face_detection(self, save_dir=None, save_margin=10):
+    def detection(self, save_dir=None, save_margin=10):
         
         def vdo_src_setting():
             web_cam = cv2.VideoCapture(0)
@@ -77,7 +84,9 @@ class Face_Detector:
                 in_key = cv2.waitKey(1) & 0xFF
                 if in_key == ord(" "):
                     crp_im = frame[y:y+h+save_margin, x:x+w+save_margin, :]
+                    
                     cv2.imwrite(join(save_dir, "{}.jpg").format(cnt), crp_im)
+                    
                     cnt = cnt + 1
                 elif in_key == ord("q"): 
                     break
@@ -87,7 +96,35 @@ class Face_Detector:
                 break
                 
         release_src(vdo_src)
+        
+    def __ld_data_gen(self):
+        pass
 
+    def recognition(self):
+        
+        def calc_embs(imgs, margin, batch_size):
+            pass
+        
+        def train():
+            pass
+            #labels = []
+            #embs = []
+            #gallery_data = self.__ld_data_gen()
+            #for name, imgs in gallery_data:
+            #    embs_ = calc_embs(imgs, margin, batch_size)    
+            #    labels.extend([name] * len(embs_))
+            #    embs.append(embs_)
+                
+            #embs = np.concatenate(embs)
+            #le = LabelEncoder().fit(labels)
+            #y = le.transform(labels)
+            #clf = SVC(kernel='linear', probability=True).fit(embs, y)
+                
+            #self.le = le
+            #self.clf = clf
+    
+    
+    
 if __name__ == "__main__":
     pass
     #detector = Face_Detector()

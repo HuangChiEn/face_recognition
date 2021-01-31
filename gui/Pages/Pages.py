@@ -12,8 +12,8 @@ from os import makedirs
 from functools import partial
 
 import sys
-sys.path.append(join("face_recognizer", "detector"))
-from detector import Face_Detector
+sys.path.append(join("face_recognizer", "recognition"))
+from recognizer import Face_Recognizer
 
 class Index_page(tk.Frame):
     
@@ -60,16 +60,19 @@ class Index_page(tk.Frame):
         btn_cfg = self.cfg_lst[1]
         btn_cfg["text"] = "  Face Recognition  " 
         btn_cfg["image"] = tk.PhotoImage(file=get_img("face_recog.pgm"))
+        btn_cfg["command"] = lambda: self.parent.switch_page(Recognition_page)
         
         # Button 3.
         btn_cfg = self.cfg_lst[2]
         btn_cfg["text"] = "   Face Gallery Set   "
         btn_cfg["image"] = tk.PhotoImage(file=get_img("gallery.pgm"))
+        #btn_cfg["command"] = lambda: self.parent.switch_page(Gallery_page)
         
         # Button 4.
         btn_cfg = self.cfg_lst[3]
         btn_cfg["text"] = "     Login History     "
         btn_cfg["image"] = tk.PhotoImage(file=get_img("history.pgm"))
+        #btn_cfg["command"] = lambda: self.parent.switch_page(History_page)
         
         # Button 5.
         btn_cfg = self.cfg_lst[4]
@@ -82,24 +85,38 @@ class Register_page(tk.Frame):
     def __init__(self, parent):
         self.parent = parent
         super().__init__(parent, background="#FFFFCC")
-        self.face_detector = Face_Detector() 
+        self.face_recognizer = Face_Recognizer() 
         self.setup_UI()
         
     def setup_UI(self):
-        tk.Label(text="Register Name").pack(side=tk.LEFT)
-        
+        tk.Label(master=self, text="Register Name").grid(row=0, column=0, ipadx=5, ipady=5, padx=5, pady=5)
         regist_name = tk.StringVar()
-        tk.Entry(textvariable=regist_name).pack(side=tk.LEFT)
-        btn = tk.Button(text="submit", 
-                  command=lambda : self.register_face(regist_name.get()))
-        btn.pack()
+        tk.Entry(master=self, textvariable=regist_name).grid(row=0, column=1, ipadx=5, ipady=5, padx=5, pady=5)
         
-    def register_face(self, name='Unknown', face_img_dir='.'):
+        btn = tk.Button(text="submit", master=self,
+                  command=lambda : self.register_face(regist_name.get()))
+        btn.grid(row=1, column=0, columnspan=2, rowspan=1, ipadx=5, ipady=5, padx=5, pady=5)
+        
+        btn = tk.Button(text="back to menu", master=self,
+                  command=lambda : self.parent.switch_page(Index_page))
+        btn.grid(row=2, column=0, columnspan=2, ipadx=5, ipady=5, padx=5, pady=5)
+        
+    def register_face(self, name='Unknown', face_img_dir='face_gallery'):
         save_dir = join(face_img_dir, name)
         makedirs(save_dir, exist_ok=True)
-        self.face_detector.face_detection(save_dir)
+        self.face_recognizer.detection(save_dir)
         
-        
-        
-        
+
+class Recognition_page(tk.Frame):
+    def __init__(self, parent):
+        raise NotImplementedError
+
+        #self.parent = parent
+        #super().__init__(parent, background="#FFFFCC")
+        #self.face_recognizer = Face_Recognizer() 
+    
+    def recognition_face(self, name='Unknown', face_img_dir='face_gallery'):
+        save_dir = join(face_img_dir, name)
+        makedirs(save_dir, exist_ok=True)
+        self.face_recognizer.recognition(save_dir)
         

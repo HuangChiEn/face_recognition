@@ -10,7 +10,6 @@ import tkinter as tk
 sys.path.append(join("gui", "Pages"))
 from Pages import Index_page
 
-
 class Recognizer_GUI(tk.Tk):
     
     def __init__(self):
@@ -24,7 +23,7 @@ class Recognizer_GUI(tk.Tk):
     def setup_root_cfg(self):
         self.title("Face Recognizer")
         self.geometry("800x600")
-        self.resizable(True, True)
+        self.resizable(height=True, width=True)
         self.configure(background='#FFFF99')
         self.iconbitmap(join("gui", "media_src", "icon", "recog_logo.ico"))
         
@@ -38,13 +37,7 @@ class Recognizer_GUI(tk.Tk):
             self.__curr_page.destroy()
             
         self.__curr_page = new_page
-        self.__curr_page.pack(expand=1)
-        
+        self.__curr_page.pack(expand=True)
         
 if __name__ == "__main__":
-    pass
-    #main_win = tk.Tk()
-    #Recognizer_GUI(main_win)
-    
-    # Activate loop for listen event
-    #main_win.mainloop()           
+    pass        
