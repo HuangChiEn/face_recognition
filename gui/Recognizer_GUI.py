@@ -38,6 +38,7 @@ class Recognizer_GUI(tk.Tk):
             
         self.__curr_page = new_page
         self.__curr_page.pack(expand=True)
+        #self.__curr_page.pack_propagate(0)
         
 if __name__ == "__main__":
     pass        

@@ -4,7 +4,7 @@ Created on Mon Jan 25 15:10:32 2021
 
 @ The face recognition can be build fastly due to lot of 
 @ open source author.. thanks for 
-@ little contributor : josep
+@ little contributor : joseph
 """
 
 from gui import Recognizer_GUI as gui
