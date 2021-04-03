@@ -7,11 +7,20 @@ Created on Fri Jan  1 21:19:30 2021
 import cv2
 import copy
 from os.path import join
-#from os import listdir, sep
-#import numpy as np
 
+# decorator singleton prevent __init__ twices
+def singleton(clz):  
+    instances = {}  
+    def getinstance(*args, **kwargs):  
+        if clz not in instances:  
+            instances[clz] = clz(*args, **kwargs)
+            
+        return instances[clz]  
+    
+    return getinstance  
 
-class Face_Detector:
+@singleton
+class Face_Detector(object):
     
     def __init__(self, pretrain_path=None):
         # pretrain weight path for face detector
@@ -23,8 +32,8 @@ class Face_Detector:
         rgb2gray = lambda img : cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         hist_equ = lambda img : cv2.equalizeHist(img)
         self.__prepro_func = lambda x : hist_equ(rgb2gray(x))
-        
-        
+
+    
     # utility function --
     def __vdo_src_setting(self):
         web_cam = cv2.VideoCapture(0)
@@ -49,8 +58,7 @@ class Face_Detector:
     def __release_src(self, vdo_src):
         vdo_src.release()
         cv2.destroyAllWindows()
-    
-    
+        
     def detection(self, save_dir=None, save_margin=10):
         detector = self.__detector_setting()
         vdo_src = self.__vdo_src_setting()

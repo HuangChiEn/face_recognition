@@ -6,15 +6,27 @@ Created on Sat Oct 31 09:58:21 2020
 """
 from os.path import join
 import sys
-import tkinter as tk
+
+sys.path.append(join("face_recognizer", "detector"))
+from detector import Face_Detector
+
+sys.path.append(join("face_recognizer", "classifier"))
+from classifier import Face_Classifier
+
 sys.path.append(join("gui", "Pages"))
 from Pages import Index_page
+
+import tkinter as tk
+
 
 class Recognizer_GUI(tk.Tk):
     
     def __init__(self):
-        #super().__init__(self)
         tk.Tk.__init__(self)
+        
+        ## Initialize singleton 
+        self.__detector_singleton_init = Face_Detector()
+        self.__classifier_singleton_init = Face_Classifier()
         
         self.setup_root_cfg()
         self.__curr_page = None
@@ -38,7 +50,6 @@ class Recognizer_GUI(tk.Tk):
             
         self.__curr_page = new_page
         self.__curr_page.pack(expand=True)
-        #self.__curr_page.pack_propagate(0)
         
 if __name__ == "__main__":
     pass        

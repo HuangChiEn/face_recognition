@@ -1,7 +1,0 @@
-## git ignore
-
-# face detector weight
-weights/*
-
-# cache
-__pycache__

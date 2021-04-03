@@ -12,9 +12,6 @@ from functools import partial
 
 ## should replace to relatively path with face_recognizer package
 import sys
-#sys.path.append(join("face_recognizer", "recognition"))
-#from recognizer import Face_Recognizer
-
 # new package for replace the recognizer..
 sys.path.append(join("face_recognizer", "detector"))
 from detector import Face_Detector
@@ -167,7 +164,9 @@ class Gallery_page(tk.Frame):
      
         
 class History_page(tk.Frame):
-    
+    ## History page : 
+    # 1. review the login record of the recognition system
+    # 2. markdown the invalid login which show the input image
     def __init__(self, parent):
         self.parent = parent
         super().__init__(parent, background="#FFFFCC")
@@ -177,9 +176,10 @@ class History_page(tk.Frame):
         tk.Button(self, text="back to menu", command=lambda: self.parent.switch_page(Index_page)
                     ).grid(row=0)
         
-
+ 
 class Update_page(tk.Frame):
-    
+    ## Update_page
+    # update the classifier with new register
     def __init__(self, parent):
         self.parent = parent
         super().__init__(parent, background="#FF6666")
@@ -194,7 +194,7 @@ class Update_page(tk.Frame):
         tk.Entry(master=self, textvariable=lim_num).grid(row=1, column=0, columnspan=2,**pad_opt)
         
         btn = tk.Button(text="update system", master=self,
-                  command=lambda : self.cls.update_classfier(lim_num.get()))
+                  command=lambda : self.cls.update_classifier(lim_num.get()))
         btn.grid(row=2, column=0, columnspan=2, **pad_opt)
         
         tk.Button(self, text="back to menu", command=lambda: self.parent.switch_page(Index_page)
