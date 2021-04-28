@@ -8,7 +8,7 @@ import cv2
 from glob import glob
 import pickle
 from os.path import join
-from os import listdir, sep
+from os import listdir, sep  
 from itertools import chain
 from random import shuffle
 
@@ -16,17 +16,22 @@ from sklearn.svm import SVC
 from sklearn.preprocessing import LabelEncoder
 import numpy as np
 
-import inception_resnet_v1 as face_model
-
-
 # decorator singleton prevent __init__ twices
 def singleton(clz):  
     instances = {}  
+    
     def getinstance(*args, **kwargs):  
+        #lock = threading.Lock()
+        #lock.acquire()
+        # critical path 
         if clz not in instances:  
             instances[clz] = clz(*args, **kwargs)  
-  
-        return instances[clz]  
+            
+        inst = instances[clz]
+        # end of critical path 
+        #lock.release()
+            
+        return inst  
   
     return getinstance  
 
@@ -51,10 +56,11 @@ class Face_Classifier:
         ## recognition model prepare 
         self.__ld_clf_le()
         if chk_model_weight_info():
+            # prevent loading the model at the import phase
+            import inception_resnet_v1 as face_model
             self.model = face_model.InceptionResNetV1(input_shape=(160, 160, 3), 
                                     weights_path=join(self.base_dir, "weights", self.name_dict['model']))
-        
-        
+            
     def __calc_embs(self, imgs, margin, batch_size):
         preprocess = lambda img : np.expand_dims(cv2.resize(img, (160, 160)), axis=0)
         imgs = preprocess(imgs)
@@ -76,7 +82,7 @@ class Face_Classifier:
                 print("load clf & le done\n")
         
     
-    def update_classifier(self, lim_num=None):
+    def update_classifier(self):
         
         def ld_data_gen():
             def data_gen(all_path):

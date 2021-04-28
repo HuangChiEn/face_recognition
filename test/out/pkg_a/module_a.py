@@ -5,3 +5,6 @@ def hallo_a():
     
 def hallo_pkg():
     module_b.hallo_b()
+    
+if __name__ == "__main__":
+    hallo_pkg()

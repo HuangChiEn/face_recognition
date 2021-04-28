@@ -9,7 +9,21 @@ Created on Mon Jan 25 15:10:32 2021
 
 from gui import Recognizer_GUI as gui
 
+from face_recognizer.classifier.classifier import Face_Classifier
+from face_recognizer.detector.detector import Face_Detector
+    
+import threading
+
 if __name__ == "__main__":
+    # multi-threading without suspend the program
+    # multi-thread can not related with tkinter obj, due to tcl interpreter
+    init_task = lambda : Face_Detector() ; Face_Classifier()
+    threading.Thread(target=init_task).start()
+    
     main_win = gui.Recognizer_GUI()
-    # Activate loop for listen event
-    main_win.mainloop()
+    main_win.mainloop()  # Activate loop for listen event
+    
+    # Clear_session
+    from keras import backend as K
+    K.clear_session()
+    
