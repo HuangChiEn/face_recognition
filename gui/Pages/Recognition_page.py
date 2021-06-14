@@ -7,14 +7,8 @@ Created on Mon Apr 26 12:11:34 2021
 from os.path import join
 import sys
 
-# new package for replace the recognizer..
-sys.path.append(join("face_recognizer", "detector"))
-from detector import Face_Detector
-sys.path.append(join("face_recognizer", "classifier"))
-from classifier import Face_Classifier
-
-#from ...face_recognizer.detector.detector import Face_Detector
-#from ...face_recognizer.classifier.classifier import Face_Classifier
+from face_recognizer.detector.detector import Face_Detector
+from face_recognizer.classifier.classifier import Face_Classifier
 
 import tkinter as tk
 from . import Index_page

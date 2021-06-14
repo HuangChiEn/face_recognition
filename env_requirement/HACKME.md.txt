@@ -1,0 +1,3 @@
+We should use the pipenv to build the project, so that we can seperate the deploy_env from the dev_env.
+
+#pip install pipenv 

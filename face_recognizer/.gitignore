@@ -1,0 +1,4 @@
+## git ignore
+
+# ignore system generated tmp file
+__pycache__

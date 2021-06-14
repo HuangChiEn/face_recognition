@@ -2,3 +2,7 @@
 
 # ignore all face image.
 face_gallery/*
+
+# ignore system generated tmp file
+__pycache__
+.ipynb_checkpoints

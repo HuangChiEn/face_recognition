@@ -57,8 +57,8 @@ class Face_Classifier:
         self.__ld_clf_le()
         if chk_model_weight_info():
             # prevent loading the model at the import phase
-            import inception_resnet_v1 as face_model
-            self.model = face_model.InceptionResNetV1(input_shape=(160, 160, 3), 
+            from .inception_resnet_v1 import InceptionResNetV1 
+            self.model = InceptionResNetV1(input_shape=(160, 160, 3), 
                                     weights_path=join(self.base_dir, "weights", self.name_dict['model']))
             
     def __calc_embs(self, imgs, margin, batch_size):

@@ -24,9 +24,12 @@
 # do the following command on your virtual-env
 pip install -r requirement.txt
 
+
 ## execute the GUI
-python main.py
- 
+(1) on the command line
+	python main.py  
+(2) on the jupyter notebook
+	open jupyter_lab_hook -> choice the corresponding kernel -> execute the first cell.
 
 ## GUI kernel function :
 
@@ -34,20 +37,26 @@ python main.py
   1. type your name into the prompt entry and then submit.
   system reply > open a window to record the webcam source (can be extended from other source).
   
-  2. press '　' (empty key) for take the shot and save the cropped image into image_gallery dir.
+  2. press '　' (space key) for take the shot and save the cropped image into image_gallery dir.
   system show > The bounding box will locate your face, and you're free to take a photo.
     
   3. press 'q' key for quit the face shot.
   system reply > close the window which record the webcam source.
 
 # Face Recognition --
-  raise NotImplementedError of python
+  1. when you register the face (run Face Registration), you need to Update the recognition system.
+  2. press the recognition buttom.
+
+# Update System
+  1. when you register the face (run Face Registration), you need to Update the recognition system.
+  2. press the update system buttom. 
 
 # Face Gallery Set --
-  Not build yet..
+  1. just show all the name of registered face.
+  (Not build yet..)
 
 # Login History --
-  Not build yet..
+  (Not build yet..)
 
 # Quit --
   Quit all software and close the window.

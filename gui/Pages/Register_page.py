@@ -10,8 +10,11 @@ from os import makedirs
 ## should replace to relatively path with face_recognizer package
 import sys
 # new package for replace the recognizer..
-sys.path.append(join("face_recognizer", "detector"))
-from detector import Face_Detector
+#sys.path.append(join("face_recognizer", "detector"))
+#from detector import Face_Detector
+
+from face_recognizer.detector.detector import Face_Detector
+
 
 import tkinter as tk
 from . import Index_page       ## Note : directly import prevent circular import problem.

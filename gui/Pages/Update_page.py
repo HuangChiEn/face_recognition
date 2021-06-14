@@ -7,9 +7,9 @@ Created on Mon Apr 26 12:25:34 2021
 from os.path import join
 import sys
 
-sys.path.append(join("face_recognizer", "classifier"))
-from classifier import Face_Classifier
-#from ...face_recognizer.classifier.classifier import Face_Classifier
+#sys.path.append(join("face_recognizer", "classifier"))
+#from classifier import Face_Classifier
+from face_recognizer.classifier.classifier import Face_Classifier
 
 import tkinter as tk
 from . import Index_page

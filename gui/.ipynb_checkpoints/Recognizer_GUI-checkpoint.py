@@ -10,8 +10,12 @@ import sys
 from .Pages import Index_page, Loading_page
 import tkinter as tk
 
-from face_recognizer.classifier.classifier import Face_Classifier
-from face_recognizer.detector.detector import Face_Detector
+#from face_recognizer.classifier.classifier import Face_Classifier
+#from face_recognizer.detector.detector import Face_Detector
+sys.path.append(join("face_recognizer", "detector"))
+from detector import Face_Detector
+sys.path.append(join("face_recognizer", "classifier"))
+from classifier import Face_Classifier
 
 class Recognizer_GUI(tk.Tk):
     
