@@ -16,34 +16,24 @@ from face_recognizer.detector.detector import Face_Detector
 class Recognizer_GUI(tk.Tk):
     
     def __init__(self):
+        
+        def setup_root_cfg():
+            self.title("Face Recognizer")
+            self.geometry("800x600")
+            self.resizable(height=True, width=True)
+            self.configure(background='#FFFF99')
+            self.iconbitmap(join("gui", "media_src", "icon", "recog_logo.ico"))
+        
         tk.Tk.__init__(self)
         
-        self.setup_root_cfg()
+        setup_root_cfg()
         self.__curr_page = None
         
-        self.__singleton_init()
-        self.__init_page()
+        # initial Index page
+        self.switch_page(Index_page.Index_page, init_flg=True)
         
-    
-    def setup_root_cfg(self):
-        self.title("Face Recognizer")
-        self.geometry("800x600")
-        self.resizable(height=True, width=True)
-        self.configure(background='#FFFF99')
-        self.iconbitmap(join("gui", "media_src", "icon", "recog_logo.ico"))
-    
-    def __singleton_init(self):
-        self.__clf = Face_Classifier()
-        self.detec = Face_Detector()
-        
-    # disable loading page ..    
-    def __loading_page(self):
-        self.switch_page(Loading_page.Loading_page)
-    
-    def __init_page(self):
-        self.switch_page(Index_page.Index_page)
        
-    def switch_page(self, frame_class):    
+    def switch_page(self, frame_class, init_flg=False):    
         new_page = frame_class(self)
         
         if(self.__curr_page != None):
@@ -51,6 +41,12 @@ class Recognizer_GUI(tk.Tk):
             
         self.__curr_page = new_page
         self.__curr_page.pack(expand=True)
+        
+        # HACKME : bad implementation..
+        if isinstance(self.__curr_page, Index_page.Index_page): 
+            self.callbk = self.__curr_page.switch_state
+            init_flg == False and self.__curr_page.switch_state()
+        
         
 if __name__ == "__main__":
     pass        

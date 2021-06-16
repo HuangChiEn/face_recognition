@@ -8,23 +8,30 @@ Created on Mon Jan 25 15:10:32 2021
 """
 
 from gui import Recognizer_GUI as gui
+from gui.Pages.Index_page import Index_page
 
-#from face_recognizer.classifier.classifier import Face_Classifier
-#from face_recognizer.detector.detector import Face_Detector
+from threading import Thread
+
+from face_recognizer.classifier.classifier import Face_Classifier
+from face_recognizer.detector.detector import Face_Detector
+
+
+def init_task(btn_call_bk):
+    Face_Detector() ; Face_Classifier()
+    btn_call_bk()
     
-#import threading
 
 if __name__ == "__main__":
-    # multi-threading without suspend the program
-    # multi-thread can not related with tkinter obj, due to tcl interpreter
-    #init_task = lambda : Face_Detector() ; Face_Classifier()
-    #init_thread = threading.Thread(target=init_task)
-    #init_thread.start()
     
     main_win = gui.Recognizer_GUI()
+    
+    task = Thread(target=init_task, args=(main_win.callbk,))
+    task.start()
+    
     main_win.mainloop()  # Activate loop for listen event
     
-    # Clear_session
-    from keras import backend as K
-    K.clear_session()
+    # Python will call join auto, but we should do it explicitly 
+    task.join()
+    
+    
     

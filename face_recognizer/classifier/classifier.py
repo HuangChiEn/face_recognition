@@ -21,17 +21,11 @@ def singleton(clz):
     instances = {}  
     
     def getinstance(*args, **kwargs):  
-        #lock = threading.Lock()
-        #lock.acquire()
-        # critical path 
         if clz not in instances:  
+            print("\n\nnew instance\n\n")
             instances[clz] = clz(*args, **kwargs)  
             
-        inst = instances[clz]
-        # end of critical path 
-        #lock.release()
-            
-        return inst  
+        return instances[clz]
   
     return getinstance  
 
@@ -60,6 +54,7 @@ class Face_Classifier:
             from .inception_resnet_v1 import InceptionResNetV1 
             self.model = InceptionResNetV1(input_shape=(160, 160, 3), 
                                     weights_path=join(self.base_dir, "weights", self.name_dict['model']))
+            
             
     def __calc_embs(self, imgs, margin, batch_size):
         preprocess = lambda img : np.expand_dims(cv2.resize(img, (160, 160)), axis=0)

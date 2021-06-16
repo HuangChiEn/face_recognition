@@ -25,6 +25,7 @@ class Index_page(tk.Frame):
         btn_seq = ("text", "image", "compound", "command")
         self.cfg_lst = [ dict.fromkeys(btn_seq) for _ in range(n_btn) ]
         self.__setup_button_cfg()
+        self.__btn_lst = []
         
         for cnt, btn_cfg in enumerate(self.cfg_lst):
             # Common setting
@@ -37,7 +38,9 @@ class Index_page(tk.Frame):
             # GUI layout
             idx, jdx = divmod(cnt, 2)
             btn_compnt.grid(row=idx, column=jdx, ipadx=5, ipady=5, padx=50, pady=50)
-        
+            
+            self.__btn_lst.append(btn_compnt)
+            
         
     def __setup_button_cfg(self):
         get_img = lambda img_name : join("gui", "media_src", "img", img_name)
@@ -46,12 +49,14 @@ class Index_page(tk.Frame):
         btn_cfg["text"] = "  Face Registration  "
         btn_cfg["image"] = tk.PhotoImage(file=get_img("regist.pgm"))
         btn_cfg["command"] = lambda: self.parent.switch_page(Register_page.Register_page)
+        btn_cfg["state"] = tk.DISABLED
         
         # Button 2.
         btn_cfg = self.cfg_lst[1]
         btn_cfg["text"] = "  Face Recognition  " 
         btn_cfg["image"] = tk.PhotoImage(file=get_img("face_recog.pgm"))
         btn_cfg["command"] = lambda: self.parent.switch_page(Recognition_page.Recognition_page)
+        btn_cfg["state"] = tk.DISABLED
         
         # Button 3.
         btn_cfg = self.cfg_lst[2]
@@ -76,3 +81,9 @@ class Index_page(tk.Frame):
         btn_cfg["text"] = "  Quit "
         btn_cfg["image"] =  tk.PhotoImage(file=get_img("quit.pgm")).subsample(2, 2)
         btn_cfg["command"] = lambda : self.parent.destroy()
+
+    def switch_state(self):
+        self.__btn_lst[0]["state"] = tk.NORMAL
+        self.__btn_lst[1]["state"] = tk.NORMAL
+        
+        

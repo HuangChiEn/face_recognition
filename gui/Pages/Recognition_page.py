@@ -23,7 +23,7 @@ class Recognition_page(tk.Frame):
         self.setup_UI()
         
     def setup_UI(self):
-        recg_btn = tk.Button(text="recognition", master=self,
+        recg_btn = tk.Button(text="recognition", master=self, 
                   command=lambda : self.face_recognition())
         recg_btn.grid(row=0, column=0)
         recg_btn = tk.Button(text="back to menu", master=self,
