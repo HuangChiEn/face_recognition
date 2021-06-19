@@ -57,7 +57,7 @@ class Face_Detector(object):
     
     def __release_src(self, vdo_src):
         vdo_src.release()
-        cv2.destroyAllWindows()
+        cv2.destroyAllWindows()    
         
     def detection(self, save_dir=None, save_margin=10):
         detector = self.__detector_setting()
@@ -79,7 +79,17 @@ class Face_Detector(object):
             
             cv2.imshow('frame', out_fram)
             
-            try:
+        
+            crp_im = frame[y:y+h+save_margin, x:x+w+save_margin, :]
+            cv2.imwrite(join(save_dir, "{}.jpg").format(cnt), crp_im)
+            cnt = cnt + 1
+            
+            
+            in_key = cv2.waitKey(1) & 0xFF
+            if in_key == ord("q"):
+                break
+            
+            '''try:
                 in_key = cv2.waitKey(1) & 0xFF
                 if in_key == ord(" "):
                     crp_im = frame[y:y+h+save_margin, x:x+w+save_margin, :]
@@ -93,7 +103,7 @@ class Face_Detector(object):
                 print("Exception : {}".format(ex))
                 print("cause save image error..")
                 break
-                
+            '''
         self.__release_src(vdo_src)
 
     # pass the detected face with other module --> face recognizer       

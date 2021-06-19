@@ -8,14 +8,13 @@ Created on Mon Jan 25 15:10:32 2021
 """
 
 from gui import Recognizer_GUI as gui
-from gui.Pages.Index_page import Index_page
 
 from threading import Thread
 
 from face_recognizer.classifier.classifier import Face_Classifier
 from face_recognizer.detector.detector import Face_Detector
 
-
+# initial singleton class to speed up the GUI
 def init_task(btn_call_bk):
     Face_Detector() ; Face_Classifier()
     btn_call_bk()
@@ -32,6 +31,4 @@ if __name__ == "__main__":
     
     # Python will call join auto, but we should do it explicitly 
     task.join()
-    
-    
     
